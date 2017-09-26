@@ -25,13 +25,13 @@ To easily switch between letters in the alphabet, and their corresponding locati
 The scrambled alphabet requires a key to initialize it. So get a key from user input, and remove these letters from the alphabet first. This is done with the method hashbBet(String key). I will step through this method to explain what's going on. 
 ```java
  private void hashabet(String in){
-       String [] keyLets = in.split("");
-       int [] avoid = new int[keyLets.length];
-       //fill the <String,Integer> Map
-       for(int i=0;i<letters.length;i++){
-           alphabet.put(i,letters[i]);
-           reference.put(letters[i],i);
-       }
+        String[] keyLets = in.split("");
+        int[] avoid = new int[in.split("").length];
+        //fill the <String,Integer> Map
+        for (int i = 0; i < letters.length; i++) {
+            alphabet.put(i, letters[i]);
+            reference.put(letters[i], i);
+        } ... 
 ```
 The String input, which will represent encryption key, is broken into individual letters held in array keyLets. We want to remove these letters from the cipher alphabet (cipherBet), so array `int[] avoid = new int[keyLets.length]` is declared to hold the indexes of the letters that must be removed from the alphabet map. 
 
@@ -71,14 +71,48 @@ Values of alphabet which previously contained a letter found in the key will ins
            index+=1;
            }
 ```
-Great! We've created a cipher alphabet starting point, which doesn't contain the key values. The next step, (*_unfinished_*) will be to scramble this cipher alphabet to effectively render mapping between the cipherBet and alphabet indecipherable! 
+Great! We've created a cipher alphabet starting point, which doesn't contain the key values. The next step, (*_work in progress_*) will be to scramble this cipher alphabet to effectively render mapping between the cipherBet and alphabet indecipherable, and map it to the regular alphabet for fast encryption. 
+
 ```java
-       System.out.print("\ncipherBet Size = "+cipherBet.size()+". Making a map of CipherBet \n");
-       //TODO:SCRAMBLE VECTOR before assigning new Map<String,Integer>scrambled!!!! 
-       for(int i=0;i<cipherBet.size();i++){
-           scrambled.put(i,cipherBet.get(i));
-           System.out.println(scrambled.get(i)+":"+i);
+        System.out.print("\nCreating CipherBet ");
+        /* Use the refernce Map to create cipherBet, avoiding
+         * Alphabet entries that are found in Key */
+        int collisions = 0;
+        int index = 0;
+        int clean = 0;
+        for (Map.Entry<String, Integer> entry : reference.entrySet()) {
+            try {
+                if (entry.getKey().compareTo(alphabet.get(index)) == 0) {
+                    cipherBet.add(alphabet.get(index));
+                } 
+            } catch (NullPointerException e) {
+                //System.out.print("alphabet["+index+"] ");
+                avoid[collisions] = index;
+                collisions += 1;
+            }
+            index += 1;
+        }
+        ```
+We want to avoid making our encryption key obvious by having it's letters absent from the encrypted text. This is addressed by recombining them into the cipherBet Map, which hasn't been mapped yet anyway. 
+```java
+        //add key letters to cipherbet, otherwise key letters are missing from encrypted text
+        for (int j = 0; j < keyLets.length; j++) {
+            cipherBet.add(keyLets[j]);
+        }
+             System.out.print("\tcipherBet Size = " + 
+             cipherBet.size() +" alphabet size = 26"+
+            "\nMaking a map of CipherBet to input ... \n");
+```
+Now finish building Map<String,String> scrambled by linking letters from alphabet Map<String,Int> to random letters 
+
+```java
+        int ix = 0;// result of a little improvised hashFunction 
+        int[] randos = new int[26];
+        for (int i = 0; i < cipherBet.size(); i++) {
+            ix = (int)(Math.random()*(cipherBet.size() - i) + Math.random());
+            randos[i] = ix;
+            scrambled.put(alphabet.get(i), cipherBet.get(ix));
            
-       }
-   }
+        }
+    }
 ```
