@@ -1,0 +1,127 @@
+/* words.java */
+import java.io.*;
+import java.util.*;
+import java.util.regex.*;
+
+/* Simple monoalphabetic cipher encryption and decryption class 
+ * @author scott robbins
+ */
+public class words {
+   
+   private static long start;
+   private static String key;
+   private static int keySize; 
+   private static String [] letters = {"A","B","C","D","E",
+                                       "F","G","H","I","J",
+                                       "K","L","M","N","O",
+                                       "P","Q","R","S","T",
+                                       "U","V","W","X","Y",
+                                       "Z"};
+                                       
+   private static Map <Integer,String> alphabet = new HashMap<>();
+   private static Map <String, Integer> reference = new HashMap<>();
+   private static Map <Integer,String> scrambled = new HashMap<>();//map of ciphBet 
+   private static Vector <String> cipherBet = new Vector<>(26);
+   private static Vector<String> keyVec = new Vector<>(26);
+  
+   /* Constructor */
+   public words(String input){
+       start = System.currentTimeMillis();
+       String entry = input; 
+       //set the encryption key to user input
+       setKey(entry);
+       // apply key to alphabet 
+       hashabet(entry);
+       
+       
+      
+      
+      System.out.println("DONE in " +timeElapsed()+" seconds ");
+       
+   }
+   
+   /* Create a new Alphabet removing encryption key */
+   private void hashabet(String in){
+       String [] keyLets = in.split("");
+       int [] avoid = new int[in.split("").length];
+       //fill the <String,Integer> Map
+       for(int i=0;i<letters.length;i++){
+           alphabet.put(i,letters[i]);
+           reference.put(letters[i],i);
+       }
+       for(int i=0;i<letters.length;i++){
+             boolean remove = false;
+           for(int j=0;j<keyVec.size();j++){
+               if(letters[i].equals(keyVec.get(j))==true 
+               || letters[i].toLowerCase().equals(keyVec.get(j))==true){
+                 //Now remove the key from the alphabet 
+                 alphabet.remove(i);
+                 j=keyVec.size();
+                 remove = true;
+               }
+               
+           }
+       }
+       System.out.print("\nCreating CipherBet avoiding: ");
+      /* Use the refernce Map to create cipherBet, avoiding
+       * Alphabet entries that are found in Key */
+      int collisions = 0; int index =0; int clean = 0;
+      for(Map.Entry<String, Integer> entry: reference.entrySet()){
+           try{
+                if(entry.getKey().compareTo(alphabet.get(index))==0){
+                    cipherBet.add(alphabet.get(index));
+                }
+                
+           }catch(NullPointerException e){
+               //System.out.print("alphabet["+index+"] ");
+               avoid[collisions] = index;
+               collisions+=1;
+               clean-=1;
+           }
+            
+           index+=1;
+           clean+=1;
+           }
+       System.out.print("\ncipherBet Size = "+cipherBet.size()+". Making a map of CipherBet \n");
+       //TODO:SCRAMBLE VECTOR before assigning new Map<String,Integer>scrambled!!!! 
+       for(int i=0;i<cipherBet.size();i++){
+           scrambled.put(i,cipherBet.get(i));
+           System.out.println(scrambled.get(i)+":"+i);
+           
+       }
+   }
+   
+   /* Initialize Cipher Key */
+   private void setKey(String input){
+       
+       String [] lets = input.split("");
+       keySize = lets.length;
+       int [] keySpots = new int [lets.length];
+       System.out.print("Setting Key ");
+       for(int i = 0; i<lets.length; i++){
+           keyVec.add(i,lets[i]);
+           System.out.print(keyVec.get(i)+" ");
+       }
+       System.out.println("");
+    } 
+    
+    /* Keep track of computation times */
+      static double timeElapsed() {
+          return (System.currentTimeMillis() - start) * 0.001;
+          }
+       
+   
+   /* Main Method */
+   public static void main(String []args){
+       //initialize alphabet
+       //initialize scanner
+       Scanner sc = new Scanner(System.in);
+       //get key from user input
+       System.out.print("Enter Key: ");
+       String entry = sc.next();
+       sc.close();
+       
+       new words(entry);
+   }
+}
+/* words.java */
