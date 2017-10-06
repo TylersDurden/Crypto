@@ -21,5 +21,5 @@ continually adapted There exist informationtheoretically secure schemes that pro
 be broken even with unlimited computing poweran example is the onetime padbut these schemes 
 are more difficult to implement than the best theoretically breakable but computationally 
 secure mechanisms 
-
+ 
  Time Elapsed: 0.244 seconds
