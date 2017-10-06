@@ -2,117 +2,85 @@
 A repository for Cryptographic projects I am actively working on. 
 
 ## Contents
-1. _words.java_
+1. Crypto.java
 
-### Description - _words.java_
-This is a simple class for encryption and decryption with a monoalphabetic substitution cipher. A monoalphabetic cipher is essentially just a new "encrypted" alphabet where each letter is linked instead with an alternative letter, allowing the resulting text to be initially unreadable without knowing how the encrypted alphabet has been scrambled.  
+### Description - *Crypto.java* 
+A quick and dirty class that encrypts data from a text file put into the src folder in classpath, and decrypts to a textfile in the same folder. The console will also give a detailed print out of how the text was encrypted. 
 
-The first Step is to initialize an alphabet. 
+## Variables 
+The HashMaps defined in the beginning of this class make up the entire mechanism of encryption and decryption. To make these Maps possible, two arrays are initialized. The most important of which is an int [] used as a sort of initialization vector of how the cipher alphabet is mapped to the regular alphabet used in clear text. This int [] is completely up to you. I chose to use 20 or so digits of pi and then add some random numbers at the end. 
+
+
 ```java 
-private static String [] letters = {"A","B","C","D","E",
-                                       "F","G","H","I","J",
-                                       "K","L","M","N","O",
-                                       "P","Q","R","S","T",
-                                       "U","V","W","X","Y",
-                                       "Z"};
-```
-To easily switch between letters in the alphabet, and their corresponding location, I will use Maps. This will be useful because as described above, the cipher will rely on creating a new mapping of the alphabet (for example where A!=0, B!=1, etc.) 
-```java
- private static Map <Integer, String > alphabet  = new HashMap<>();
- private static Map <String,  Integer> reference = new HashMap<>();
- private static Map <Integer, String > scrambled = new HashMap<>(); 
-```
-The scrambled alphabet requires a key to initialize it. So get a key from user input, and remove these letters from the alphabet first. This is done with the method hashbBet(String key). I will step through this method to explain what's going on. 
-```java
- private void hashabet(String in){
-        String[] keyLets = in.split("");
-        int[] avoid = new int[in.split("").length];
-        //fill the <String,Integer> Map
-        for (int i = 0; i < letters.length; i++) {
-            alphabet.put(i, letters[i]);
-            reference.put(letters[i], i);
-        } ... 
-```
-The String input, which will represent encryption key, is broken into individual letters held in array keyLets. We want to remove these letters from the cipher alphabet (cipherBet), so array `int[] avoid = new int[keyLets.length]` is declared to hold the indexes of the letters that must be removed from the alphabet map. 
 
-Then while looping through the String [] containing the alphabet a few different operations are performed consecutively. First we populate the `Map<String,Integer> alphabet` by assigning the key value (a letter) to a corresponding integer indexed by simply stepping through the alphabet String []. We immediately also Map the current index as a key to the corresponding letter, filling the `Map<Integer,String> reference` at the same time as alphabet. Now that the alphabetic map is initialized, we have to remove the letters of the key. 
-```java
-       for(int i=0;i<letters.length;i++){
-             boolean remove = false;
-           for(int j=0;j<keyVec.size();j++){
-               if(letters[i].equals(keyVec.get(j))==true 
-               || letters[i].toLowerCase().equals(keyVec.get(j))==true){
-                 //Now remove the key from the alphabet 
-                 alphabet.remove(i);
-                 j=keyVec.size();
-                 remove = true;
-               }
-           }
-       }
+ private static final int[]          pi        = {3, 1, 4, 1, 5, 9, 
+                                                  2, 6, 5, 3, 5, 8, 
+                                                  9, 7, 9, 3, 2, 3,
+                                                  8, 4, 6, 2, 3, 7,
+                                                  3, 3};
+    /** pi is essentially the equivalent of an IvP in DES. ^ could be made into a Vector as the private key **/
+ private static final String[]       alpha     = {"A", "B", "C", "D",
+                                                  "E", "F", "G", "H", 
+                                                  "I", "J", "K", "L",
+                                                  "M", "N", "O", "P",
+                                                  "Q","R", "S", "T", 
+                                                  "U", "V", "W", "X", 
+                                                  "Y", "Z"};
 ```
-Values of alphabet which previously contained a letter found in the key will instead contain a null value. The next step is to create a cipher alphabet, skipping over the null values by taking advantage of a `NullPointerException`. 
-```java
-       System.out.print("\nCreating CipherBet avoiding: ");
-      /* Use the refernce Map to create cipherBet, avoiding
-       * Alphabet entries that are found in Key */
-      int collisions = 0;   int index =0; 
-      for(Map.Entry<String, Integer> entry: reference.entrySet()){
-           try{
-                if(entry.getKey().compareTo(alphabet.get(index))==0){
-                    cipherBet.add(alphabet.get(index));
-                }
-                
-           }catch(NullPointerException e){
-               //System.out.print("alphabet["+index+"] ");
-               avoid[collisions] = index;
-               collisions+=1;
-               clean-=1;
-           }
-           index+=1;
-           }
-```
-Great! We've created a cipher alphabet starting point, which doesn't contain the key values. The next step, (*_work in progress_*) will be to scramble this cipher alphabet to effectively render mapping between the cipherBet and alphabet indecipherable, and map it to the regular alphabet for fast encryption. 
+
+Three HashMaps control encryption. The first one is the regular alphabet mapped to their relative indices,  `<i,alpha[i]>` . This provides the logical structure for both of the following Maps, and for how the cleartext letters are scrambled.  
 
 ```java
-        System.out.print("\nCreating CipherBet ");
-        /* Use the refernce Map to create cipherBet, avoiding
-         * Alphabet entries that are found in Key */
-        int collisions = 0;
-        int index = 0;
-        int clean = 0;
-        for (Map.Entry<String, Integer> entry : reference.entrySet()) {
-            try {
-                if (entry.getKey().compareTo(alphabet.get(index)) == 0) {
-                    cipherBet.add(alphabet.get(index));
-                } 
-            } catch (NullPointerException e) {
-                //System.out.print("alphabet["+index+"] ");
-                avoid[collisions] = index;
-                collisions += 1;
-            }
-            index += 1;
-        }
-        ```
-We want to avoid making our encryption key obvious by having it's letters absent from the encrypted text. This is addressed by recombining them into the cipherBet Map, which hasn't been mapped yet anyway. 
-```java
-        //add key letters to cipherbet, otherwise key letters are missing from encrypted text
-        for (int j = 0; j < keyLets.length; j++) {
-            cipherBet.add(keyLets[j]);
-        }
-             System.out.print("\tcipherBet Size = " + 
-             cipherBet.size() +" alphabet size = 26"+
-            "\nMaking a map of CipherBet to input ... \n");
-```
-Now finish building Map<String,String> scrambled by linking letters from alphabet Map<String,Int> to random letters 
+    static Map<Integer, String>         alphabet  = new HashMap<Integer, String>();
+    static Map<Integer, String>         cipherBet = new HashMap<Integer, String>();
+    static Map<String, String>          solution  = new HashMap<String, String>();
 
-```java
-        int ix = 0;// result of a little improvised hashFunction 
-        int[] randos = new int[26];
-        for (int i = 0; i < cipherBet.size(); i++) {
-            ix = (int)(Math.random()*(cipherBet.size() - i) + Math.random());
-            randos[i] = ix;
-            scrambled.put(alphabet.get(i), cipherBet.get(ix));
-           
+```
+## Initializing the Cipher 
+After filling alphabet with aforementioned values, the cipherBet is created by placing alphabet's mapped value for the key `pi[i]` , where i is the index in the cipherBet. The resulting two maps can be visualized below.  
+
+```java 
+    /*--- - ---- - -----Initialize the Cipher ~*[_pi_]*~ ----- - ---- - --- *
+     * A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Map<Integer,String> alphabet
+     * D B E B F J C G F D F I J H J D C D I E G C D H D D Map<Integer,String> cipherBet
+     * --- - --- - ---- ----------- -- ----- -- --------- ----- - ---- - ---*/
+    static void initialize() {
+        //Initialize Map <Integer,String> alphabet 
+        System.out.println("\nInitializing Cipher");
+        for (int i = 0; i < alpha.length; i++) {
+            alphabet.put(i, alpha[i]);
         }
+        //Initialize CipherBet
+        for (int i = 0; i < pi.length; i++) {
+            cipherBet.put(i, alphabet.get(pi[i]));
+            viper.put(alphabet.get(i), pi[i]);
+            revBet.put(alphabet.get(pi[i]), pi[i]);
+            System.out.print(cipherBet.get(i) + " ");
+
+        }
+
     }
+```
+What is interesting about this mapping is that there are many reoccuring values in the cipherBet. Therefore, encrypted words cannot be deciphered by simply figuring out which letters correspond to which on a 1:1 level. In this case, any given letter of the alphabet could correspond to the a range of different letters, whose size would be attributed to the mode of the array and the number of unique elements in the initializing Integer array (in this case `pi`). 
+
+## Encrypting Text Files 
+A FileReader gets data from a specific path,into a BufferedReader, and stores the content as first  `String [] lines` and then the current line saved with `static Map<lineNumber,textFromLine> linemap` to be read or referenced easily later. Once the text is prepared the encryption method is called. This method contains a lot of extra information simply to create an informative printout, but the encryption process itself is much smaller, and included here. 
+
+```java
+for (int i = 0; i < alphabet.size(); i++) {
+            solution.put(alphabet.get(i), cipherBet.get(i));
+        }
+
+        String result = "";
+        for (int j = 0; j < ws.length; j++) {
+            String[] chars = ws[j].split("");
+            String temp = "";
+            for (int i = 0; i < chars.length; i++) {
+                result += solution.get(chars[i].toUpperCase());
+                temp += solution.get(chars[i].toUpperCase());
+            }
+            ciphWords[wordCount] = temp;
+            wordCount += 1;
+        }
+
 ```
