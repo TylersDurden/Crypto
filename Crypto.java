@@ -11,7 +11,7 @@ import java.util.*;
  * libraries. 
  * 
  * @Author ScottRobbins
- * 10/5/2017
+ * 10/3/2017
  ****** --- - ---- - ----- ~*CRYPTO*~ ----- - ---- - --- ************/
 public class Crypto {
 
@@ -147,7 +147,7 @@ public class Crypto {
 
         String[] encLets = result.trim().split("");
 
-        System.out.println("\n\t***Decrypting " + ciphWords.length + " words and " + encLets.length + " letters***");
+        System.out.println("\n\t***Decrypting " + ws.length + " words and " + encLets.length + " letters***");
 
 
         /* Display data visually */
