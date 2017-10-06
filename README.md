@@ -2,7 +2,7 @@
 A repository for Cryptographic projects I am actively working on. 
 
 ## Contents
-1. Crypto.java
+1. Crypto.java - *Now Updated to support multiple line text files 
 
 ### Description - *Crypto.java* 
 A quick and dirty class that encrypts data from a text file put into the src folder in classpath, and decrypts to a textfile in the same folder. The console will also give a detailed print out of how the text was encrypted. 
