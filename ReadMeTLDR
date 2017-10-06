@@ -1,0 +1,68 @@
+The console printout of the program alone could be enough for many to figure out what this class does. 
+you can probably crack this but I think it is pretty clever
+****************************************************
+12 words
+ 
+****************************************************
+ 
+Initializing Cipher
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 
+D B E B F J C G F D F I J H J D C D I E G C D H D D 
+****************************************************
+DJG EDH DDJBDBID EDDEF EGFI BGE F EGFHF FE 
+FI DDFEED EIFCFD 
+	***Decrypting 12 words and 48 letters***
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+J: F:9|M:9|O:9|
+G: H:6|U:6|
+E: C:4|T:4|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+H: N:7|X:7|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+J: F:9|M:9|O:9|
+B: B:1|D:1|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+B: B:1|D:1|
+I: L:8|S:8|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+E: C:4|T:4|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+E: C:4|T:4|
+F: E:5|I:5|K:5|
+E: C:4|T:4|
+G: H:6|U:6|
+F: E:5|I:5|K:5|
+I: L:8|S:8|
+B: B:1|D:1|
+G: H:6|U:6|
+E: C:4|T:4|
+F: E:5|I:5|K:5|
+E: C:4|T:4|
+G: H:6|U:6|
+F: E:5|I:5|K:5|
+H: N:7|X:7|
+F: E:5|I:5|K:5|
+F: E:5|I:5|K:5|
+E: C:4|T:4|
+F: E:5|I:5|K:5|
+I: L:8|S:8|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+F: E:5|I:5|K:5|
+E: C:4|T:4|
+E: C:4|T:4|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+E: C:4|T:4|
+I: L:8|S:8|
+F: E:5|I:5|K:5|
+C: G:2|Q:2|V:2|
+F: E:5|I:5|K:5|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+ 
+***** Results mapped. Untangling possible solutions *****
+ 
+Answer: you can probably crack this but I think it is pretty clever 
+****************************************************
+ Time: [0.058 seconds]
