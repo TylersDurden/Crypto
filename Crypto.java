@@ -44,36 +44,54 @@ public class Crypto {
     static String[]                     ws;
     static int                          wordCount = 0;
     static String                       cipherText;
-    static String[]                     ciphWords = new String[30];
+    static String[]                     ciphWords = new String[100];
 
     public Crypto() {
 
         /* Initialize the Crypto Engine */
         start = System.currentTimeMillis();
+        
         /* Read In data to be encrypted from a text file */
         readTextFile("Data.txt");
         System.out.println("\n****************************************************");
+        
         /* Parse the file for words and letters */
-        parseFile();
-        /*Intialize cipher */
-        System.out.println("\n****************************************************");
-        initialize();
-        /* Encrypt the information */
-        System.out.println("\n****************************************************");
-        cipherText = encrypt();
-        LogResults("Encrypted Message:\n" + cipherText + "\t[" + timeElapsed() + " seconds]\n");
-        /* Decrypt the information */
-        decrypt();
-        System.out.println("\n****************************************************");
+        String [] text = parseFile();
+         LogResults("\t\t\tBEGINNING DECRYPTION");
+         String ans = "";
+        for(String ln : text){
+            /*Intialize cipher */
+            System.out.println("\n****************************************************");
+            initialize();
+            /* Encrypt the information */
+            System.out.println("\n****************************************************");
+            cipherText = encrypt(ln);
+            LogResults(cipherText);
+            /* Decrypt the information */
+           ans+= decrypt() +"\n";
+            System.out.println("\n****************************************************");
 
-        /* Display runtime */
-        System.out.println(" Time: " + "[" + timeElapsed() + " seconds]");
+        }
+        
+        
+            /* Display runtime */
+            System.out.println(" Time: " + "[" + timeElapsed() + " seconds]");
+            LogResults("\nDecrypted Message: \n"+ans);
+            LogResults(" Time Elapsed: " + timeElapsed() + " seconds");
     }
 
     /* Prepare text file for encryption */
-    static void parseFile() {
+    static String[] parseFile() {
         ws = linemap.get(0).split(" ");
+        String [] wlin = new String[linemap.size()];
+        int i=0;
+        for(Map.Entry<Integer,String>entry:linemap.entrySet()){
+            wlin[i] = entry.getValue();
+            i+=1;
+        }
         System.out.println(ws.length + " words");
+        System.out.println(wlin.length+" lines");
+        return wlin;
     }
 
     /*--- - ---- - -----Initialize the Cipher ~*[_pi_]*~ ----- - ---- - --- *
@@ -102,7 +120,7 @@ public class Crypto {
     }
 
     /* - - - - - - - - - - ~*Encryption Method*~ - - - - - - - - - - -  */
-    private String encrypt() {
+    private String encrypt(String ln) {
         /** * * * * *<~*ALGORITHM*~>* * * * *
          * <1> get characters (save breaks in words)
          * <2> map characters to encrpted characters
@@ -124,12 +142,15 @@ public class Crypto {
         }
 
         String result = "";
+    
+        ws = ln.split(" ");
         for (int j = 0; j < ws.length; j++) {
             //System.out.println(ws[0]);
-
+            ws[j].replaceAll("\n"," ");
             String[] chars = ws[j].split("");
             String temp = "";
             for (int i = 0; i < chars.length; i++) {
+                if(solution.get(chars[i].toUpperCase())!=null)
                 result += solution.get(chars[i].toUpperCase());
                 System.out.print(solution.get(chars[i].toUpperCase()));
 
@@ -193,7 +214,7 @@ public class Crypto {
         4 - repeat until the ciphertext spit out matches the ciphertext put in. Then you know you have the 
         correct clear text! 
          */
-        LogResults("\t\t\tBEGINNING DECRYPTION");
+       
 
         String[] encLets = cipherText.split("");
         String solution = "";
@@ -205,7 +226,7 @@ public class Crypto {
                 for (String letter : encLets) {
                     String[] characters = magic.get(letter).split("");//[A,J,P,R,W,Y,Z]
                     for (String c : characters) {
-                        if (c.compareTo(lets[i].toUpperCase()) == 0) {
+                        if (c.compareTo(lets[i].toUpperCase()) == 0 && c!=null) {
                             addLet = true;
                         }
                     }
@@ -219,7 +240,7 @@ public class Crypto {
         }
 
         System.out.print("Answer: " + solution);
-        LogResults(solution + " Time Elapsed: " + timeElapsed() + " seconds");
+       // LogResults(solution + " Time Elapsed: " + timeElapsed() + " seconds");
 
         return solution;
 
@@ -243,6 +264,7 @@ public class Crypto {
                 linemap.put(ln, currentLine);
                 lines[ln] = currentLine;
                 System.out.print(linemap.get(ln));
+                ln+=1;
             }
 
 
