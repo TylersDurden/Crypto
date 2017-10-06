@@ -86,4 +86,82 @@ A FileReader gets data from a specific path, into a BufferedReader, and stores t
 The first step of the encryption process consists of creating the HashMap `solution`, with `alphabet<Integer,String>` as the keys for corresponding `cipherBet<Integer,String>` values. Encrypting the text is then as simple as looping through the Characters of the message and swapping them with the corresponding cipherBet value in `solution`. 
 
 ## Results of Encryption 
-The results of encryption d
+The results of the encryption are then saved in the text file "results.txt", along with the time it took to encrypt the message. Using a very small sample in "Data.txt" to be encrypted the resulting encrypted text is: 
+
+```txt
+Encrypted Message:
+DJGEDHDDJBDBIDEDDEFEGFIBGEFEGFHFFEFIDDFEEDEIFCFD	[0.021 seconds]
+```
+For the sake of clarity, the console prints out a very informative display on the encryptions results, and the logic behind retrieving the original message (and in effect also illustrating how difficult it would be to crack the encrypted message alone using brute force). 
+
+First the initial message and it's word count is displayed.  
+
+```txt
+you can probably crack this but I think it is pretty clever
+****************************************************
+12 words
+ 
+****************************************************
+ 
+Initializing Cipher
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 
+D B E B F J C G F D F I J H J D C D I E G C D H D D 
+****************************************************
+DJG EDH DDJBDBID EDDEF EGFI BGE F EGFHF FE 
+FI DDFEED EIFCFD 
+	***Decrypting 12 words and 48 letters***
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+J: F:9|M:9|O:9|
+G: H:6|U:6|
+E: C:4|T:4|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+H: N:7|X:7|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+J: F:9|M:9|O:9|
+B: B:1|D:1|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+B: B:1|D:1|
+I: L:8|S:8|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+E: C:4|T:4|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+E: C:4|T:4|
+F: E:5|I:5|K:5|
+E: C:4|T:4|
+G: H:6|U:6|
+F: E:5|I:5|K:5|
+I: L:8|S:8|
+B: B:1|D:1|
+G: H:6|U:6|
+E: C:4|T:4|
+F: E:5|I:5|K:5|
+E: C:4|T:4|
+G: H:6|U:6|
+F: E:5|I:5|K:5|
+H: N:7|X:7|
+F: E:5|I:5|K:5|
+F: E:5|I:5|K:5|
+E: C:4|T:4|
+F: E:5|I:5|K:5|
+I: L:8|S:8|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+F: E:5|I:5|K:5|
+E: C:4|T:4|
+E: C:4|T:4|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+E: C:4|T:4|
+I: L:8|S:8|
+F: E:5|I:5|K:5|
+C: G:2|Q:2|V:2|
+F: E:5|I:5|K:5|
+D: A:3|J:3|P:3|R:3|W:3|Y:3|Z:3|
+ 
+***** Results mapped. Untangling possible solutions *****
+ 
+Answer: you can probably crack this but I think it is pretty clever 
+****************************************************
+ Time: [0.058 seconds]
+```
