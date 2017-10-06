@@ -11,7 +11,7 @@ import java.util.*;
  * libraries. 
  * 
  * @Author ScottRobbins
- * 10/3/2017
+ * 10/5/2017
  ****** --- - ---- - ----- ~*CRYPTO*~ ----- - ---- - --- ************/
 public class Crypto {
 
