@@ -64,10 +64,10 @@ After filling alphabet with aforementioned values, the cipherBet is created by p
 What is interesting about this mapping is that there are many reoccuring values in the cipherBet. Therefore, encrypted words cannot be deciphered by simply figuring out which letters correspond to which on a 1:1 level. In this case, any given letter of the alphabet could correspond to the a range of different letters, whose size would be attributed to the mode of the array and the number of unique elements in the initializing Integer array (in this case `pi`). 
 
 ## Encrypting Text Files 
-A FileReader gets data from a specific path,into a BufferedReader, and stores the content as first  `String [] lines` and then the current line saved with `static Map<lineNumber,textFromLine> linemap` to be read or referenced easily later. Once the text is prepared the encryption method is called. This method contains a lot of extra information simply to create an informative printout, but the encryption process itself is much smaller, and included here. 
+A FileReader gets data from a specific path, into a BufferedReader, and stores the content as first  `String [] lines` and then the current line saved with `static Map<lineNumber,textFromLine> linemap` to be read or referenced easily later. Once the text is prepared the encryption method is called. This method contains a lot of extra information simply to create an informative printout, but the encryption process itself is much smaller, and included here. 
 
 ```java
-for (int i = 0; i < alphabet.size(); i++) {
+        for (int i = 0; i < alphabet.size(); i++) {
             solution.put(alphabet.get(i), cipherBet.get(i));
         }
 
@@ -82,5 +82,8 @@ for (int i = 0; i < alphabet.size(); i++) {
             ciphWords[wordCount] = temp;
             wordCount += 1;
         }
-
 ```
+The first step of the encryption process consists of creating the HashMap `solution`, with `alphabet<Integer,String>` as the keys for corresponding `cipherBet<Integer,String>` values. Encrypting the text is then as simple as looping through the Characters of the message and swapping them with the corresponding cipherBet value in `solution`. 
+
+## Results of Encryption 
+The results of encryption d
