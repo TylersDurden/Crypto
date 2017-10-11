@@ -2,9 +2,11 @@
 A repository for Cryptographic projects I am actively working on. 
 
 ## Contents
-1. Crypto.java - *Now Updated to support multiple line text files 
+1. Crypto.java - *Now Updated to support multiple line text files* 
+2. Windtalker.java - *encryption with 1:1 alphabetic mapping* 
+3. Resolve.java - *Brute Force/Dictionary attack on Windtalker cipher*
 
-### Description - *Crypto.java* 
+### *Crypto.java* 
 A quick and dirty class that encrypts data from a text file put into the src folder in classpath, and decrypts to a textfile in the same folder. The console will also give a detailed print out of how the text was encrypted. 
 
 ## Variables 
@@ -165,3 +167,5 @@ Answer: you can probably crack this but I think it is pretty clever
 ****************************************************
  Time: [0.058 seconds]
 ```
+### *Windtalker.java*
+This class encrypts text using a 1:1 mapping of every alphabetic character to another character selected from a randomly assembled alphabet. Single sentences can be encryped an decrypted in less than 1ms. Tested up to 200 words, and maximum elapsed encryption/decryption time is >20ms. 
