@@ -7,7 +7,6 @@ import java.util.*;
  * Resolve.java is an added component to Windtalker.java (which is a dependency). 
  * Windtalker quickly encrypts text, while Resolve will crack the resulting 
  * cipher text with a mix of brute force and a dictionary attack. 
- * 
  * @author ScottRobbins
  * @date 10/17 
  *********************/
