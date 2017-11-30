@@ -6,9 +6,9 @@ echo 'From there, Need to compile and run it (all on USB).'
 cd /media/root/UNTITLED/CRYPTO
 
 # Fetch Crypto Repository from GitHub 
-#git config --global user.name "{}"
-#git config --global user.email "{}"
-#git clone https://www.github.com/TylersDurden/Crypto
+git config --global user.name "{}"
+git config --global user.email "{}"
+git clone https://www.github.com/TylersDurden/Crypto
 
 #git location: cd /media/root/UNTITLED/CRYPTO/Crypto/src
 
