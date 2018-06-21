@@ -168,4 +168,4 @@ Answer: you can probably crack this but I think it is pretty clever
  Time: [0.058 seconds]
 ```
 ### *Windtalker.java*
-This class encrypts text using a 1:1 mapping of every alphabetic character to another character selected from a randomly assembled alphabet. Single sentences can be encryped an decrypted in less than 1ms. Tested up to 200 words, and maximum elapsed encryption/decryption time is >20ms. 
+This class encrypts text using a 1:1 mapping of every alphabetic character to another character selected from a randomly assembled alphabet. Single sentences can be encryped an decrypted in less than 100ms. Tested up to 200 words, and maximum elapsed encryption/decryption time is >200ms. 
